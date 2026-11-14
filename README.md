@@ -1,3 +1,15 @@
+# Bilingual resume website
+
+Run `npm install` once, then:
+
+```bash
+npm run start:dev
+```
+
+Open **http://localhost:4000**. Use the **English / فارسی** links at the top to switch languages. Both pages run together: `/en/` reads `resumes/resume.en.json`, and `/fa/` reads `resumes/resume.fa.json`. Refresh after saving JSON changes. Stop an existing preview on port 4000 first, or use `PORT=4001 npm run start:dev`.
+
+To generate both languages together as a static website, run `npm run build:site`. The output is in `dist/`, ready to serve with any static web server. The JSON editor remains available separately with `npm run editor` on port 3000.
+
 # Local resume editor
 
 Run `npm install` once, then start the editor:
@@ -53,39 +65,50 @@ npx puppeteer browsers install chrome
 
 پس از ویرایش و ذخیرهٔ فایل‌های JSON در پوشهٔ `resumes/`، دستور موردنظر را از ریشهٔ پروژه (پوشهٔ حاوی `package.json`) اجرا کنید. پوشه‌های `resumes/` و `pdfs/` در Git نگهداری می‌شوند.
 
+نام فایل‌های خروجی شامل نام صاحب رزومه، نوع سند و نام کامل زبان است تا هنگام ارسال هم مشخص باشند:
+
+| سند | زبان | فایل PDF |
+| --- | --- | --- |
+| رزومه کوتاه | انگلیسی | [Sajad-Rahimi-Resume-English.pdf](pdfs/Sajad-Rahimi-Resume-English.pdf) |
+| رزومه کوتاه | فارسی | [Sajad-Rahimi-Resume-Persian.pdf](pdfs/Sajad-Rahimi-Resume-Persian.pdf) |
+| CV کامل | انگلیسی | [Sajad-Rahimi-Full-CV-English.pdf](pdfs/Sajad-Rahimi-Full-CV-English.pdf) |
+| CV کامل | فارسی | [Sajad-Rahimi-Full-CV-Persian.pdf](pdfs/Sajad-Rahimi-Full-CV-Persian.pdf) |
+
+دستورهای زیر در هر بار تولید از همین نام‌ها استفاده می‌کنند و فایل قبلی همان نسخه را جایگزین می‌کنند.
+
 برای ساخت هر نسخه به‌صورت جداگانه:
 
 رزومه کوتاه انگلیسی:
 
 ```bash
-npx resume export pdfs/resume.en.pdf --resume resumes/resume.en.json --theme modern-classic
+npx resume export pdfs/Sajad-Rahimi-Resume-English.pdf --resume resumes/resume.en.json --theme modern-classic
 ```
 
 رزومه کوتاه فارسی:
 
 ```bash
-npx resume export pdfs/resume.fa.pdf --resume resumes/resume.fa.json --theme ./themes/modern-classic-fa
+npx resume export pdfs/Sajad-Rahimi-Resume-Persian.pdf --resume resumes/resume.fa.json --theme ./themes/modern-classic-fa
 ```
 
 CV کامل انگلیسی:
 
 ```bash
-npx resume export pdfs/cv.en.pdf --resume resumes/cv.en.json --theme modern-classic
+npx resume export pdfs/Sajad-Rahimi-Full-CV-English.pdf --resume resumes/cv.en.json --theme modern-classic
 ```
 
 CV کامل فارسی:
 
 ```bash
-npx resume export pdfs/cv.fa.pdf --resume resumes/cv.fa.json --theme ./themes/modern-classic-fa
+npx resume export pdfs/Sajad-Rahimi-Full-CV-Persian.pdf --resume resumes/cv.fa.json --theme ./themes/modern-classic-fa
 ```
 
 برای ساخت همهٔ چهار PDF با یک دستور:
 
 ```bash
-npx resume export pdfs/resume.en.pdf --resume resumes/resume.en.json --theme modern-classic && npx resume export pdfs/resume.fa.pdf --resume resumes/resume.fa.json --theme ./themes/modern-classic-fa && npx resume export pdfs/cv.en.pdf --resume resumes/cv.en.json --theme modern-classic && npx resume export pdfs/cv.fa.pdf --resume resumes/cv.fa.json --theme ./themes/modern-classic-fa
+npx resume export pdfs/Sajad-Rahimi-Resume-English.pdf --resume resumes/resume.en.json --theme modern-classic && npx resume export pdfs/Sajad-Rahimi-Resume-Persian.pdf --resume resumes/resume.fa.json --theme ./themes/modern-classic-fa && npx resume export pdfs/Sajad-Rahimi-Full-CV-English.pdf --resume resumes/cv.en.json --theme modern-classic && npx resume export pdfs/Sajad-Rahimi-Full-CV-Persian.pdf --resume resumes/cv.fa.json --theme ./themes/modern-classic-fa
 ```
 
-فایل‌های `pdfs/resume.en.pdf`، `pdfs/resume.fa.pdf`، `pdfs/cv.en.pdf` و `pdfs/cv.fa.pdf` در پوشهٔ `pdfs/` ساخته می‌شوند و با اجرای مجدد دستورها جایگزین خواهند شد. این دستورها را باید بعد از هر تغییر اجرا کنید؛ خروجی PDF خودکار به‌روز نمی‌شود.
+فایل‌های `pdfs/Sajad-Rahimi-Resume-English.pdf`، `pdfs/Sajad-Rahimi-Resume-Persian.pdf`، `pdfs/Sajad-Rahimi-Full-CV-English.pdf` و `pdfs/Sajad-Rahimi-Full-CV-Persian.pdf` در پوشهٔ `pdfs/` ساخته می‌شوند و با اجرای مجدد دستورها جایگزین خواهند شد. این دستورها را باید بعد از هر تغییر اجرا کنید؛ خروجی PDF خودکار به‌روز نمی‌شود.
 
 هر چهار فایل مستقل هستند؛ تغییر یکی به‌صورت خودکار در دیگری اعمال نمی‌شود. برای ویرایش، فایل نوع سند و زبان موردنظر را انتخاب کنید. پس از تغییر `resumes/resume.en.json`، کپی آن را با دستور زیر هماهنگ کنید:
 
