@@ -1,9 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const fontFaces = [['Regular',400],['SemiBold',600],['Bold',700]].map(([name,weight]) => {
- const data = fs.readFileSync(path.join(__dirname, `fonts/Vazirmatn-${name}.ttf`)).toString('base64');
- return `@font-face{font-family:Vazirmatn;src:url(data:font/ttf;base64,${data}) format('truetype');font-weight:${weight};font-style:normal;font-display:block}`;
-}).join('');
+const { faces: fontFaces } = require('../fonts');
 const css = fs.readFileSync(path.join(__dirname, 'style.css'), 'utf8');
 const escape = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const text = value => `<bdi dir="auto">${escape(value)}</bdi>`;

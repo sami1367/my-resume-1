@@ -10,6 +10,12 @@ Open **http://localhost:4000**. Use the **English / فارسی** links at the to
 
 To generate both languages together as a static website, run `npm run build:site`. The output is in `dist/`, ready to serve with any static web server. The JSON editor remains available separately with `npm run editor` on port 3000.
 
+## Fonts for the website and PDFs
+
+Both languages use the bundled **Vazirmatn** font (Persian and Latin characters), with regular (400), semibold (600), and bold (700) weights. Font data is embedded in the website HTML and local PDF themes, so font loading needs no internet connection. The website keeps the Even layout for English; English PDFs keep Modern Classic. Persian keeps its RTL layout.
+
+Use the local PDF theme paths in the commands below to retain embedded fonts. After a font change, restart the website, rebuild static pages with `npm run build:site`, and regenerate PDFs. Existing PDFs do not update automatically. Font files and the OFL license are in `themes/modern-classic-fa/fonts/`; shared embedding code is in `themes/fonts.js`.
+
 # Local resume editor
 
 Run `npm install` once, then start the editor:
@@ -47,7 +53,7 @@ Run `node editor/check.cjs` for the editor's local API checks (port 3000 must be
 
 ## نصب ابزارها (یک‌بار)
 
-قالب انتخاب‌شده **Modern Classic** است و با نام `modern-classic` در دستورها استفاده می‌شود.
+قالب PDF انتخاب‌شده **Modern Classic** است؛ دستورها از نسخه‌های محلی `themes/modern-classic-en` و `themes/modern-classic-fa` استفاده می‌کنند.
 
 در ترمینال، از پوشهٔ پروژه اجرا کنید:
 
@@ -81,7 +87,7 @@ npx puppeteer browsers install chrome
 رزومه کوتاه انگلیسی:
 
 ```bash
-npx resume export pdfs/Sajad-Rahimi-Resume-English.pdf --resume resumes/resume.en.json --theme modern-classic
+npx resume export pdfs/Sajad-Rahimi-Resume-English.pdf --resume resumes/resume.en.json --theme ./themes/modern-classic-en
 ```
 
 رزومه کوتاه فارسی:
@@ -93,7 +99,7 @@ npx resume export pdfs/Sajad-Rahimi-Resume-Persian.pdf --resume resumes/resume.f
 CV کامل انگلیسی:
 
 ```bash
-npx resume export pdfs/Sajad-Rahimi-Full-CV-English.pdf --resume resumes/cv.en.json --theme modern-classic
+npx resume export pdfs/Sajad-Rahimi-Full-CV-English.pdf --resume resumes/cv.en.json --theme ./themes/modern-classic-en
 ```
 
 CV کامل فارسی:
@@ -105,7 +111,7 @@ npx resume export pdfs/Sajad-Rahimi-Full-CV-Persian.pdf --resume resumes/cv.fa.j
 برای ساخت همهٔ چهار PDF با یک دستور:
 
 ```bash
-npx resume export pdfs/Sajad-Rahimi-Resume-English.pdf --resume resumes/resume.en.json --theme modern-classic && npx resume export pdfs/Sajad-Rahimi-Resume-Persian.pdf --resume resumes/resume.fa.json --theme ./themes/modern-classic-fa && npx resume export pdfs/Sajad-Rahimi-Full-CV-English.pdf --resume resumes/cv.en.json --theme modern-classic && npx resume export pdfs/Sajad-Rahimi-Full-CV-Persian.pdf --resume resumes/cv.fa.json --theme ./themes/modern-classic-fa
+npx resume export pdfs/Sajad-Rahimi-Resume-English.pdf --resume resumes/resume.en.json --theme ./themes/modern-classic-en && npx resume export pdfs/Sajad-Rahimi-Resume-Persian.pdf --resume resumes/resume.fa.json --theme ./themes/modern-classic-fa && npx resume export pdfs/Sajad-Rahimi-Full-CV-English.pdf --resume resumes/cv.en.json --theme ./themes/modern-classic-en && npx resume export pdfs/Sajad-Rahimi-Full-CV-Persian.pdf --resume resumes/cv.fa.json --theme ./themes/modern-classic-fa
 ```
 
 فایل‌های `pdfs/Sajad-Rahimi-Resume-English.pdf`، `pdfs/Sajad-Rahimi-Resume-Persian.pdf`، `pdfs/Sajad-Rahimi-Full-CV-English.pdf` و `pdfs/Sajad-Rahimi-Full-CV-Persian.pdf` در پوشهٔ `pdfs/` ساخته می‌شوند و با اجرای مجدد دستورها جایگزین خواهند شد. این دستورها را باید بعد از هر تغییر اجرا کنید؛ خروجی PDF خودکار به‌روز نمی‌شود.
@@ -118,7 +124,7 @@ cp resumes/resume.en.json resumes/resume.json
 
 CVها اطلاعات کامل قبلی را حفظ کرده‌اند. رزومه‌های کوتاه بر اساس متن جدید تهیه شده‌اند؛ در متن جدید، شاخص پاسخ زیر یک ثانیه از ۹۰٪ به ۹۵٪ و مخاطب اپلیکیشن دوم تلامالا از مدیران به فروشگاه‌ها تغییر کرده است. پیش از ارسال، این تفاوت‌ها را بررسی کنید. تعداد صفحات PDF به قالب و صفحه‌بندی بستگی دارد.
 
-نسخه‌های فارسی از قالب محلی `themes/modern-classic-fa` با چیدمان راست‌به‌چپ، عنوان‌های فارسی و فونت وزیرمتن استفاده می‌کنند. نسخه‌های انگلیسی همچنان از Modern Classic اصلی استفاده می‌کنند.
+نسخه‌های فارسی از قالب محلی `themes/modern-classic-fa` با چیدمان راست‌به‌چپ، عنوان‌های فارسی و فونت وزیرمتن استفاده می‌کنند. نسخه‌های انگلیسی از قالب محلی `themes/modern-classic-en` با چیدمان Modern Classic و فونت تعبیه‌شدهٔ وزیرمتن استفاده می‌کنند.
 
 برای تغییر ظاهر فارسی، فایل `themes/modern-classic-fa/style.css` و برای تغییر عنوان‌ها و ساختار، فایل `themes/modern-classic-fa/index.js` را ویرایش کنید. فونت داخل پوشهٔ `fonts` قرار دارد و در خروجی تعبیه می‌شود؛ تولید و نمایش PDF فارسی به دانلود فونت از اینترنت نیاز ندارد. تاریخ‌ها با نام ماه فارسی و تقویم میلادی نمایش داده می‌شوند.
 

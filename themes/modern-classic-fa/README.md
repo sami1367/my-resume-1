@@ -14,6 +14,6 @@
 از ریشهٔ پروژه اجرا کنید:
 
 ```bash
-npx resume export pdfs/resume.fa.pdf --resume resumes/resume.fa.json --theme ./themes/modern-classic-fa
-npx resume export pdfs/cv.fa.pdf --resume resumes/cv.fa.json --theme ./themes/modern-classic-fa
+npx resume export pdfs/Sajad-Rahimi-Resume-Persian.pdf --resume resumes/resume.fa.json --theme ./themes/modern-classic-fa
+npx resume export pdfs/Sajad-Rahimi-Full-CV-Persian.pdf --resume resumes/cv.fa.json --theme ./themes/modern-classic-fa
 ```

@@ -2,6 +2,7 @@
 const http = require('node:http');
 const fs = require('node:fs/promises');
 const path = require('node:path');
+const { apply: applyFonts } = require('../themes/fonts');
 const themes = {
   fa: require('../themes/modern-classic-fa'),
 };
@@ -10,13 +11,14 @@ const root = path.resolve(__dirname, '..');
 async function render(language, prefix = '../') {
   const resume = JSON.parse(await fs.readFile(path.join(root, `resumes/resume.${language}.json`), 'utf8'));
   const theme = language === 'en' ? await import('jsonresume-theme-even') : themes.fa;
-  const html = await theme.render(resume);
+  const rendered = await theme.render(resume);
+  const html = language === 'en' ? applyFonts(rendered) : rendered;
   const nav = `<nav class="language-switch" aria-label="${language === 'fa' ? 'انتخاب زبان' : 'Language'}" dir="ltr">
     <a href="${prefix}en/" lang="en" hreflang="en" ${language === 'en' ? 'aria-current="page"' : ''}>English</a>
     <a href="${prefix}fa/" lang="fa" hreflang="fa" ${language === 'fa' ? 'aria-current="page"' : ''}>فارسی</a>
   </nav>`;
   const css = `<style>
-    .language-switch { grid-column: 1 / -1; grid-row: 1; display: flex; justify-content: center; gap: 8px; padding: 16px; margin: 0 auto 20px; direction: ltr; font: 16px/1.5 system-ui, sans-serif; }
+    .language-switch { grid-column: 1 / -1; grid-row: 1; display: flex; justify-content: center; gap: 8px; padding: 16px; margin: 0 auto 20px; direction: ltr; font: 16px/1.5 Vazirmatn, sans-serif; }
     .language-switch a { display: inline-block; padding: 6px 18px; border: 1px solid #d1d5db; border-radius: 6px; color: #334155; background: white; text-decoration: none; }
     .language-switch a[aria-current] { background: #334155; color: white; border-color: #334155; }
     .language-switch a:focus-visible { outline: 3px solid #2563eb; outline-offset: 3px; }
