@@ -16,6 +16,8 @@ Both languages use the bundled **Vazirmatn** font (Persian and Latin characters)
 
 Use the local PDF theme paths in the commands below to retain embedded fonts. After a font change, restart the website, rebuild static pages with `npm run build:site`, and regenerate PDFs. Existing PDFs do not update automatically. Font files and the OFL license are in `themes/modern-classic-fa/fonts/`; shared embedding code is in `themes/fonts.js`.
 
+Each resume and CV includes links below the email, phone, and location to the GitHub profile and one matching PDF in the other language on Google Drive. These absolute links also work in downloaded PDFs. Update `meta.githubUrl`, `meta.alternateLanguage`, and `meta.alternatePdfUrl` in the corresponding JSON file if the profile or shared Drive file changes. When replacing PDFs in Drive, use **Manage versions → Upload new version** to preserve these file links. Shared link rendering lives in `themes/resume-links.js`.
+
 # Local resume editor
 
 Run `npm install` once, then start the editor:

@@ -2,6 +2,7 @@
 const http = require('node:http');
 const fs = require('node:fs/promises');
 const path = require('node:path');
+const { addLinks } = require('../themes/resume-links');
 const { apply: applyFonts } = require('../themes/fonts');
 const themes = {
   fa: require('../themes/modern-classic-fa'),
@@ -12,7 +13,7 @@ async function render(language, prefix = '../') {
   const resume = JSON.parse(await fs.readFile(path.join(root, `resumes/resume.${language}.json`), 'utf8'));
   const theme = language === 'en' ? await import('jsonresume-theme-even') : themes.fa;
   const rendered = await theme.render(resume);
-  const html = language === 'en' ? applyFonts(rendered) : rendered;
+  const html = language === 'en' ? addLinks(applyFonts(rendered), resume) : rendered;
   const nav = `<nav class="language-switch" aria-label="${language === 'fa' ? 'انتخاب زبان' : 'Language'}" dir="ltr">
     <a href="${prefix}en/" lang="en" hreflang="en" ${language === 'en' ? 'aria-current="page"' : ''}>English</a>
     <a href="${prefix}fa/" lang="fa" hreflang="fa" ${language === 'fa' ? 'aria-current="page"' : ''}>فارسی</a>

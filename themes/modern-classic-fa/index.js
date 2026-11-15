@@ -1,3 +1,4 @@
+const { addLinks } = require('../resume-links');
 const fs = require('fs');
 const path = require('path');
 const { faces: fontFaces } = require('../fonts');
@@ -22,7 +23,7 @@ exports.render = function(resume) {
  const b = resume.basics || {}, loc = b.location || {};
  const contacts = [b.email && link(`mailto:${b.email}`,b.email), b.phone && link(`tel:${b.phone}`,b.phone), b.url && link(b.url), loc.city && text([loc.city,loc.region !== loc.city && loc.region,loc.countryCode === 'IR' ? 'ایران' : loc.countryCode].filter(Boolean).join('، '))].filter(Boolean);
  const cards = (items,field) => `<div class="cards">${items.map(x=>`<div class="card"><h3>${text(x[field])}</h3>${x.fluency ? p(x.fluency):''}${x.keywords?.length ? `<div class="tags">${x.keywords.map(k=>text(k)).join('، ')}</div>`:''}</div>`).join('')}</div>`;
- return `<!doctype html><html lang="fa" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${escape(b.name)} | رزومه</title><style>${fontFaces}${css}</style></head><body class="${resume.projects?.length ? 'cv' : 'resume'}"><main>
+ return addLinks(`<!doctype html><html lang="fa" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${escape(b.name)} | رزومه</title><style>${fontFaces}${css}</style></head><body class="${resume.projects?.length ? 'cv' : 'resume'}"><main>
  <header><h1>${text(b.name)}</h1>${b.label ? `<div class="label">${text(b.label)}</div>`:''}<div class="contacts">${contacts.map(c=>`<span>${c}</span>`).join('')}</div>${b.profiles?.length ? `<div class="contacts">${b.profiles.map(x=>link(x.url,x.network)).join(' · ')}</div>`:''}${b.summary ? `<div class="profile"><h2>درباره من</h2>${p(b.summary)}</div>`:''}</header>
  ${section('سوابق شغلی',resume.work,w=>article(w.position,[w.name && (w.url ? link(w.url,w.name):text(w.name)),w.location && text(w.location)].filter(Boolean).join(' · '),p(w.summary)+list(w.highlights),range(w)))}
  ${resume.skills?.length ? `<section><h2>مهارت‌ها</h2>${cards(resume.skills,'name')}</section>`:''}
@@ -35,5 +36,5 @@ exports.render = function(resume) {
  ${resume.languages?.length ? `<section><h2>زبان‌ها</h2>${cards(resume.languages,'language')}</section>`:''}
  ${resume.interests?.length ? `<section><h2>علایق</h2>${cards(resume.interests,'name')}</section>`:''}
  ${section('معرف‌ها',resume.references,x=>article(x.name,'',p(x.reference)))}
- </main></body></html>`;
+ </main></body></html>`, resume);
 };
